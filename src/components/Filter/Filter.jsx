@@ -1,10 +1,10 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateFilter } from "../../features/contacts/contactsSlice";
+import { setFilter } from "../../redux/filterSlice";
 import "./Filter.css";
 
 export default function Filter() {
-  const filter = useSelector((state) => state.contactsState.filter);
+  const filter = useSelector((state) => state.filter);
   const dispatch = useDispatch();
 
   return (
@@ -13,7 +13,7 @@ export default function Filter() {
         type="text"
         placeholder="Search contacts"
         value={filter}
-        onChange={(e) => dispatch(updateFilter(e.target.value))}
+        onChange={(e) => dispatch(setFilter(e.target.value))}
       />
     </div>
   );
