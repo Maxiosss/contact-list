@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addContact } from "../../redux/contactsOperations";
+import { selectContactsArray } from "../../redux/contactsSelectors";
 import "./ContactForm.css";
 
 export default function ContactForm() {
@@ -8,9 +9,11 @@ export default function ContactForm() {
   const [number, setNumber] = useState("");
 
   const dispatch = useDispatch();
-const contacts = useSelector((state) => state.contacts?.items ?? []);
+  const contacts = useSelector(selectContactsArray);
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
     const trimmedName = name.trim();
     const trimmedNumber = number.trim();
     if (!trimmedName || !trimmedNumber) return;
@@ -22,6 +25,7 @@ const contacts = useSelector((state) => state.contacts?.items ?? []);
       alert(`${trimmedName} is already in contacts.`);
       return;
     }
+
     dispatch(addContact({ name: trimmedName, number: trimmedNumber }));
     setName("");
     setNumber("");
